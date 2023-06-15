@@ -26,9 +26,8 @@
 <meta property="og:description" content="👨‍🎓关于我 你好！欢迎来到我的个人网页👋我是zl，在这里你可以找到一些关于我的信息。目前在中国科学技术大学精密机械与精密仪器系就读博士，我的研究重点是机器人和强化学习。 📝个人资料      姓名： 郑立     毕业院校： 中国科学技术大学     出生年月： 1998-11     电话： 15255195207     籍贯： 安徽六安     邮箱： zlsy@mail.ustc">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zl-6956.github.io/img/bg/Identification.png">
-<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/model.jpg">
 <meta property="article:published_time" content="2023-02-19T12:52:59.000Z">
-<meta property="article:modified_time" content="2023-06-15T09:40:34.858Z">
+<meta property="article:modified_time" content="2023-06-15T09:43:18.514Z">
 <meta property="article:author" content="高山临溪谷">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zl-6956.github.io/img/bg/Identification.png">
@@ -419,14 +418,14 @@
 </div>
   <div style="flex: 1;">
   <div id="image-container">
-    <img src="../img/paper_project/model.jpg" srcset="/img/loading.gif" lazyload alt="model" id="current-image">
+    <img src="" srcset="/img/loading.gif" lazyload alt="model" id="current-image">
   </div>
 <p><button onclick="nextImage()">下一张</button></p>
   <script>
     var images = [
-      "E:/Blog/source/about/model.jpg",
-      "E:/Blog/source/about/algorithml.jpg",
-      "E:/Blog/source/about/experiment.jpg"
+      "../img/paper_project/model.jpg",
+      "../img/paper_project/algorithml.jpg",
+      "../img/paper_project/experiment.jpg"
       ];
 
     var currentIndex = 0;
@@ -434,8 +433,7 @@
     function nextImage() {
       var image = document.getElementById("current-image");
       currentIndex = (currentIndex + 1) % images.length;
-      // image.src = images[currentIndex];
-      image.src = "../img/paper_project/algorithml.jpg";
+      image.src = images[currentIndex];
       image.alt = "图片" + (currentIndex + 1);
     }
   </script>
