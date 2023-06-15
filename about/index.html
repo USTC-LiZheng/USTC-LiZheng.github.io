@@ -26,11 +26,9 @@
 <meta property="og:description" content="👨‍🎓关于我 你好！欢迎来到我的个人网页👋我是zl，在这里你可以找到一些关于我的信息。目前在中国科学技术大学精密机械与精密仪器系就读博士，我的研究重点是机器人和强化学习。 📝个人资料      姓名： 郑立     毕业院校： 中国科学技术大学     出生年月： 1998-11     电话： 15255195207     籍贯： 安徽六安     邮箱： zlsy@mail.ustc">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zl-6956.github.io/img/bg/Identification.png">
-<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/model.jpg">
-<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/algorithml.jpg">
-<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/experiment.jpg">
+<meta property="og:image" content="http://zl-6956.github.io/model.jpg">
 <meta property="article:published_time" content="2023-02-19T12:52:59.000Z">
-<meta property="article:modified_time" content="2023-06-15T10:13:13.508Z">
+<meta property="article:modified_time" content="2023-06-15T10:22:59.335Z">
 <meta property="article:author" content="高山临溪谷">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zl-6956.github.io/img/bg/Identification.png">
@@ -367,24 +365,24 @@
 </div>
 <div>
     <div style="float: right;margin-right: 60px;">
-        <img src="../img/bg/Identification.png" srcset="/img/loading.gif" lazyload width="120px" height="150px" style="box-shadow: 5px 5px 5px rgba(0,0,0,.5);">
+        <img src="/../img/bg/Identification.png" srcset="/img/loading.gif" lazyload width="120px" height="150px" style="box-shadow: 5px 5px 5px rgba(0,0,0,.5);">
     </div>
 </div>
-<br />
-<br />
-<br />
-<br />
-<br />
+<br>
+<br>
+<br>
+<br>
+<br>
 <h2 id="🎓教育背景">🎓教育背景</h2>
 <div style="float: left;display: flex;flex-wrap: wrap;width: 75%;justify-content: space-between;">
     <div style="width: 95%;font-weight: 500;color: #4c4c4c;font-size: 16px;margin: 5px;">¶ 2022.09 - 至今     中国科学技术大学     电子信息     博士</div>
     <div style="width: 95%;font-weight: 500;color: #4c4c4c;font-size: 16px;margin: 5px;">¶ 2020.09 - 2022.06   中国科学技术大学   仪器科学与技术   硕士</div>
     <div style="width: 95%;font-weight: 500;color: #4c4c4c;font-size: 16px;margin: 5px;">¶ 2016.09 - 2020.06    大连理工大学      海洋技术     本科</div>
 </div>
-<br />
-<br />
-<br />
-<br />
+<br>
+<br>
+<br>
+<br>
 <h2 id="🔬科学研究">🔬科学研究</h2>
 <p>一种基于高效收敛深度强化学习的动态环境下机械手轨迹规划方法，<a target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s10846-023-01822-5">📄论文链接</a></p>
 <div style="display: flex;">
@@ -421,28 +419,18 @@
   </div>
   <div style="flex: 1;">
   <div id="image-container">
-    <img id="model" src="../img/paper_project/model.jpg" srcset="/img/loading.gif" lazyload alt="图片描述">
-    <img id="algorithml" src="../img/paper_project/algorithml.jpg" srcset="/img/loading.gif" lazyload alt="图片描述">
-    <img id="experiment" src="../img/paper_project/experiment.jpg" srcset="/img/loading.gif" lazyload" alt="图片描述">
+    <img id="current-image" src="/./model.jpg" srcset="/img/loading.gif" lazyload alt="图片描述">
   </div>
-<p><button onclick="nextImage()">下一张</button></p>
+<p><button onclick="toggleImage()">切换图片</button></p>
   <script>
-    var imageBlocks = ["model", "algorithml", "experiment"];
-    var currentLanguageIndex = 0;
+    var images = ["./model.jpg", "./algorithm.jpg", "./experiment.jpg"];
+    var currentIndex = 0;
 
-    function nextImage() {
-      
-      var image1 = document.getElementById("current-image");
-      var image2 = document.getElementById("current-image");
-      var image3 = document.getElementById("current-image");
-      
-      var currentImage = document.getElementById(imageBlocks[currentLanguageIndex]);
-      currentImage.style.display = "none";
-
-      currentLanguageIndex = (currentLanguageIndex + 1) % imageBlocks.length;
-
-      var newImage = document.getElementById(imageBlocks[currentLanguageIndex]);
-      newImage.style.display = "block";
+    function toggleImage() {
+      var image = document.getElementById("current-image");
+      currentIndex = (currentIndex + 1) % images.length;
+      image.src = images[currentIndex];
+      image.alt = "图片" + currentIndex;
     }
   </script>
   </div>
