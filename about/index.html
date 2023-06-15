@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://zl-6956.github.io/img/bg/Identification.png">
 <meta property="og:image" content="http://zl-6956.github.io/img/paper_project/model.jpg">
 <meta property="article:published_time" content="2023-02-19T12:52:59.000Z">
-<meta property="article:modified_time" content="2023-06-15T09:37:19.684Z">
+<meta property="article:modified_time" content="2023-06-15T09:40:34.858Z">
 <meta property="article:author" content="高山临溪谷">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zl-6956.github.io/img/bg/Identification.png">
@@ -434,7 +434,8 @@
     function nextImage() {
       var image = document.getElementById("current-image");
       currentIndex = (currentIndex + 1) % images.length;
-      image.src = images[currentIndex];
+      // image.src = images[currentIndex];
+      image.src = "../img/paper_project/algorithml.jpg";
       image.alt = "图片" + (currentIndex + 1);
     }
   </script>
