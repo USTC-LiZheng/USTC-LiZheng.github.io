@@ -26,9 +26,10 @@
 <meta property="og:description" content="👨‍🎓关于我 你好！欢迎来到我的个人网页👋我是zl，在这里你可以找到一些关于我的信息。目前在中国科学技术大学精密机械与精密仪器系就读博士，我的研究重点是机器人和强化学习。 📝个人资料      姓名： 郑立     毕业院校： 中国科学技术大学     出生年月： 1998-11     电话： 15255195207     籍贯： 安徽六安     邮箱： zlsy@mail.ustc">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zl-6956.github.io/img/bg/Identification.png">
-<meta property="og:image" content="http://zl-6956.github.io/model.jpg">
+<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/models.jpg">
+<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/algorithm.jpg">
 <meta property="article:published_time" content="2023-02-19T12:52:59.000Z">
-<meta property="article:modified_time" content="2023-06-15T10:22:59.335Z">
+<meta property="article:modified_time" content="2023-06-16T06:51:57.203Z">
 <meta property="article:author" content="高山临溪谷">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zl-6956.github.io/img/bg/Identification.png">
@@ -388,20 +389,45 @@
 <div style="display: flex;">
   <div style="flex: 2;">
   <div id="text-container">
-      <div id="chinese-text">
+      <div id="chinese-text" class="text-block">
+        <div class="scrollable-content">
 <blockquote>
 <p><strong>摘要</strong></p>
-<div style="text-align: justify;">最近，基于深度强化学习（DRL）的轨迹规划方法被设计用于机械手轨迹规划，因为它们在解决多维空间轨迹规划问题方面具有潜力。然而，许多为在动态环境中工作的操纵者提出的DRL模型在获得最优策略方面面临困难，从而由于大量无效的探索和稀疏的奖励而阻止它们达到收敛。在本文中，我们解决了行动选择策略和奖励函数两个层面的低效收敛问题。首先，设计了一种动态动作选择策略，利用变量引导项在训练前提供正样本的概率较高，有效减少了无效探索;其次，提出一种将人工势场法与时能函数相结合的组合奖励函数，大大提高了基于DRL的机械手在动态工作环境下轨迹规划方法的效率和稳定性。使用CoppeliaSim模拟模型和自由移动的障碍物和6自由度机械手进行了广泛的实验。结果表明，所提出的动态动作选择策略和组合奖励函数能够将DDPG、TD3和SAC DRL算法的收敛率提高3-5倍。此外，奖励函数的平均值增加了1.47-2.70倍，标准差降低了27.56%至56.60%。</div>
+<div class="chinese-text" style="text-align: justify;">最近，基于深度强化学习（DRL）的轨迹规划方法被设计用于机械手轨迹规划，因为它们在解决多维空间轨迹规划问题方面具有潜力。然而，许多为在动态环境中工作的操纵者提出的DRL模型在获得最优策略方面面临困难，从而由于大量无效的探索和稀疏的奖励而阻止它们达到收敛。在本文中，我们解决了行动选择策略和奖励函数两个层面的低效收敛问题。首先，设计了一种动态动作选择策略，利用变量引导项在训练前提供正样本的概率较高，有效减少了无效探索;其次，提出一种将人工势场法与时能函数相结合的组合奖励函数，大大提高了基于DRL的机械手在动态工作环境下轨迹规划方法的效率和稳定性。使用CoppeliaSim模拟模型和自由移动的障碍物和6自由度机械手进行了广泛的实验。结果表明，所提出的动态动作选择策略和组合奖励函数能够将DDPG、TD3和SAC DRL算法的收敛率提高3-5倍。此外，奖励函数的平均值增加了1.47-2.70倍，标准差降低了27.56%至56.60%。</div>
 </blockquote>
   </div>
-    <div id="english-text" style="display: none;">
+  </div>
+  <div id="english-text" class="text-block" style="display: none;">
+    <div class="scrollable-content">  
 <blockquote>
 <p><strong>Abstract</strong></p>
-<div style="text-align: justify;">Recently, deep reinforcement learning (DRL)-based trajectory planning methods have been designed for manipulator trajectory planning, given their potential in solving the problem of multidimensional spatial trajectory planning. However, many DRL models that have been proposed for manipulators working in dynamic environments face difficulties in obtaining the optimal strategy, thereby preventing them from reaching convergence because of massive ineffective exploration and sparse rewards. In this paper, we solve the inefficient convergence problem at the two levels of the action selection strategy and reward functions. First, this paper designs a dynamic action selection strategy that has a high probability of providing positive samples in the pre-training period by using a variable guide item and effectively reduces invalid exploration. Second, this study proposes a combinatorial reward function that combines the artificial potential field method with a time-energy function, thereby greatly improving the efficiency and stability of DRL-based methods for manipulators trajectory planning in dynamic working environments. Extensive experiments are conducted using the *CoppeliaSim* simulation model with a freely moving obstacle and the 6-DOF manipulator. The results show that the proposed dynamic action selection strategy and combinatorial reward function can improve the convergence rate on the DDPG, TD3, and SAC DRL algorithms by up to 3-5 times. Furthermore, the mean value of the reward function increases by up to 1.47-2.70 times, and the standard deviation decreases by 27.56% to 56.60%.</div>
+<div class="english-text" style="text-align: justify;">Recently, deep reinforcement learning (DRL)-based trajectory planning methods have been designed for manipulator trajectory planning, given their potential in solving the problem of multidimensional spatial trajectory planning. However, many DRL models that have been proposed for manipulators working in dynamic environments face difficulties in obtaining the optimal strategy, thereby preventing them from reaching convergence because of massive ineffective exploration and sparse rewards. In this paper, we solve the inefficient convergence problem at the two levels of the action selection strategy and reward functions. First, this paper designs a dynamic action selection strategy that has a high probability of providing positive samples in the pre-training period by using a variable guide item and effectively reduces invalid exploration. Second, this study proposes a combinatorial reward function that combines the artificial potential field method with a time-energy function, thereby greatly improving the efficiency and stability of DRL-based methods for manipulators trajectory planning in dynamic working environments. Extensive experiments are conducted using the *CoppeliaSim* simulation model with a freely moving obstacle and the 6-DOF manipulator. The results show that the proposed dynamic action selection strategy and combinatorial reward function can improve the convergence rate on the DDPG, TD3, and SAC DRL algorithms by up to 3-5 times. Furthermore, the mean value of the reward function increases by up to 1.47-2.70 times, and the standard deviation decreases by 27.56% to 56.60%.</div>
 </blockquote>
+  </div>
   </div>
   </div>
 <p><button id="language-toggle" onclick="toggleText()">切换语言</button></p>
+  <style>
+  .text-block {
+    width: 600px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .scrollable-content {
+    height: 320px;
+    overflow: auto;
+  }
+
+  .english-text {
+   font-family: Times New Roman;
+  }
+
+  .chinese-text {
+   font-family: 华文楷体;
+  } 
+</style>
   <script>
     function toggleText() {
       var chineseText = document.getElementById("chinese-text");
@@ -419,18 +445,35 @@
   </div>
   <div style="flex: 1;">
   <div id="image-container">
-    <img id="current-image" src="/./model.jpg" srcset="/img/loading.gif" lazyload alt="图片描述">
+    <img id="image1" class="image" src="/../img/paper_project/models.jpg" srcset="/img/loading.gif" lazyload style="display: block;">
+    <img id="image2" class="image" src="/../img/paper_project/algorithm.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
   </div>
 <p><button onclick="toggleImage()">切换图片</button></p>
+  <style>
+    #image-container {
+      width: 300px;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    .image {
+      width: 100%;
+      height: auto;
+      display: none;
+    }
+
+    .show-image {
+      display: block;
+    }
+  </style>
   <script>
-    var images = ["./model.jpg", "./algorithm.jpg", "./experiment.jpg"];
+    var images = document.getElementsByClassName("image");
     var currentIndex = 0;
 
     function toggleImage() {
-      var image = document.getElementById("current-image");
+      images[currentIndex].style.display = "none";
       currentIndex = (currentIndex + 1) % images.length;
-      image.src = images[currentIndex];
-      image.alt = "图片" + currentIndex;
+      images[currentIndex].style.display = "block";
     }
   </script>
   </div>
