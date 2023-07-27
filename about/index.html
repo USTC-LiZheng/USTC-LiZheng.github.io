@@ -31,8 +31,13 @@
 <meta property="og:image" content="http://zl-6956.github.io/img/paper_project/DDPG.jpg">
 <meta property="og:image" content="http://zl-6956.github.io/img/paper_project/TD3.jpg">
 <meta property="og:image" content="http://zl-6956.github.io/img/paper_project/SAC.jpg">
+<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/PROS.png">
+<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/work1.JPG">
+<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/work2.JPG">
+<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/work3.JPG">
+<meta property="og:image" content="http://zl-6956.github.io/img/paper_project/work4.JPG">
 <meta property="article:published_time" content="2023-02-19T12:52:59.000Z">
-<meta property="article:modified_time" content="2023-06-16T08:17:33.646Z">
+<meta property="article:modified_time" content="2023-06-17T05:30:29.634Z">
 <meta property="article:author" content="高山临溪谷">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zl-6956.github.io/img/bg/Identification.png">
@@ -448,17 +453,19 @@
   </div>
   <div style="flex: 1;">
   <div id="image-container">
-    <img id="image1" class="image" src="/../img/paper_project/models.jpg" srcset="/img/loading.gif" lazyload style="display: block;">
-    <img id="image2" class="image" src="/../img/paper_project/algorithm.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
-    <img id="image1" class="image" src="/../img/paper_project/DDPG.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
-    <img id="image2" class="image" src="/../img/paper_project/TD3.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
-    <img id="image1" class="image" src="/../img/paper_project/SAC.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
+    <img id="models" class="image" src="/../img/paper_project/models.jpg" srcset="/img/loading.gif" lazyload style="display: block;">
+      <img id="algorithm" class="image" src="/../img/paper_project/algorithm.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
+      <img id="DDPG" class="image" src="/../img/paper_project/DDPG.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
+      <img id="TD3" class="image" src="/../img/paper_project/TD3.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
+      <img id="SAC" class="image" src="/../img/paper_project/SAC.jpg" srcset="/img/loading.gif" lazyload style="display: none;">
+    <span id="prev-arrow" class="arrow" onclick="prevImage()">&lt;</span>
+    <span id="next-arrow" class="arrow" onclick="nextImage()">&gt;</span>
   </div>
-<p><button onclick="toggleImage()">切换图片</button></p>
   <style>
     #image-container {
-      width: 300px;
-      height: 400px;
+      position: relative;
+      width: 320px;
+      height: 265px;
       overflow: hidden;
     }
 
@@ -466,6 +473,30 @@
       width: 100%;
       height: auto;
       display: none;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 50px;
+      color: #87CEEB;
+      cursor: pointer;
+
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .arrow:hover {
+      opacity: 1;
+    }
+
+    #prev-arrow {
+      left: 0px;
+    }
+
+    #next-arrow {
+      right: 0px;
     }
 
     .show-image {
@@ -476,7 +507,13 @@
     var images = document.getElementsByClassName("image");
     var currentIndex = 0;
 
-    function toggleImage() {
+    function prevImage() {
+      images[currentIndex].style.display = "none";
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      images[currentIndex].style.display = "block";
+    }
+
+    function nextImage() {
       images[currentIndex].style.display = "none";
       currentIndex = (currentIndex + 1) % images.length;
       images[currentIndex].style.display = "block";
@@ -485,6 +522,106 @@
   </div>
 </div>
 <h2 id="⚙️工程项目">⚙️工程项目</h2>
+<p>配网带电作业机器人的人机智能融合控制技术及带电接火作业工具应用研究</p>
+<div style="display: flex;">
+  <div style="flex: 2;">
+  <div id="text-container">
+      <div id="chinese-text" class="text-block">
+        <div class="scrollable-content">
+<blockquote>
+<div class="chinese-text" style="text-align: justify;">针对配网带电作业的环境复杂性和任务多样性难题，研究持重臂和灵巧臂结合的轻量化双臂协作机器人机构及其控制技术，研制绝缘作业工具及其快换装置。研究作业现场环境立体感知与场景模型三维重构，构建机器人作业虚拟仿真平台，开发基于视觉-力反馈融合的双臂协作机器人临场感遥操作系统。研究作业目标精准识别与锁定技术，研究在给定约束条件下以任务为导向的机器学习训练方法，实现机器人自主避障导航规划和部分自主作业功能。研制出配网带电作业机器人系统，实现 10kV 配网线路带电拆接引、导线清障、更换跌落式熔断器、安装验电接地环、安装故障指示器、修剪树枝等不少于 6 种典型配网带电作业项目，并开展实际场景应用验证。
+</div></blockquote>
+  </div> </div>
+  </div>
+  <style>
+    .text-block {
+      width: 550px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .scrollable-content {
+    height: 190px;
+    overflow: auto;
+  }
+
+    .chinese-text {
+    font-family: 华文楷体;
+    } 
+  </style>
+  </div>
+  <div style="flex: 1;">
+  <div id="Image-container">
+    <img id="PROS" class="Image" src="/../img/paper_project/PROS.png" srcset="/img/loading.gif" lazyload style="display: block;">
+    <img id="work1" class="Image" src="/../img/paper_project/work1.JPG" srcset="/img/loading.gif" lazyload style="display: none;">
+    <img id="work2" class="Image" src="/../img/paper_project/work2.JPG" srcset="/img/loading.gif" lazyload style="display: none;">
+    <img id="work3" class="Image" src="/../img/paper_project/work3.JPG" srcset="/img/loading.gif" lazyload style="display: none;">
+    <img id="work4" class="Image" src="/../img/paper_project/work4.JPG" srcset="/img/loading.gif" lazyload style="display: none;">
+    <span id="prev-arrow1" class="arrow1" onclick="prevImage1()">&lt;</span>
+    <span id="next-arrow1" class="arrow1" onclick="nextImage1()">&gt;</span>
+  </div>
+  <style>
+    #Image-container {
+      position: relative;
+      width: 320px;
+      height: 265px;
+      overflow: hidden;
+    }
+
+    .Image {
+      width: 100%;
+      height: auto;
+      display: none;
+    }
+
+    .arrow1 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-75%);
+      font-size: 50px;
+      color: #87CEEB;
+      cursor: pointer;
+
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+
+    .arrow1:hover {
+      opacity: 1;
+    }
+
+    #prev-arrow1 {
+      left: 0px;
+    }
+
+    #next-arrow1 {
+      right: 0px;
+    }
+
+    .show-image {
+      display: block;
+    }
+  </style>
+  <script>
+    var Images = document.getElementsByClassName("Image");
+    var currentIndex1 = 0;
+
+    function prevImage1() {
+      Images[currentIndex1].style.display = "none";
+      currentIndex1 = (currentIndex1 - 1 + Images.length) % Images.length;
+      Images[currentIndex1].style.display = "block";
+    }
+
+    function nextImage1() {
+      Images[currentIndex1].style.display = "none";
+      currentIndex1 = (currentIndex1 + 1) % Images.length;
+      Images[currentIndex1].style.display = "block";
+    }
+  </script>
+  </div>
+</div>
 <h2 id="🛠️技能技术">🛠️技能技术</h2>
 <ul>
 <li><strong>编程语言：</strong> Python， C/C++， Lua， Matlab</li>
