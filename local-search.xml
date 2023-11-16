@@ -27,7 +27,7 @@
     <link href="/2023/11/16/coppeliasim/"/>
     <url>/2023/11/16/coppeliasim/</url>
     
-    <content type="html"><![CDATA[<h1>Ubuntu22.04 解决VREP/CoppeliaSim 界面字体过小问题</h1><h2 id="Windows10">Windows10</h2><p>1.右键单击CoppeliaSim.exe（可能的位置：C：\ Program Files \ CoppeliaRobotics \ CoppeliaSimEdu），然后单击“属性”。</p><p>2.在“兼容性”选项卡下</p><p>3.单击“更改高DPI设置”</p><p>4.选中“替代高DPI缩放行为”框</p><p>5.缩放比例–选择“系统”</p><p>啦啦啦啦啦</p><h2 id="Ubuntu">Ubuntu</h2><p>1.找到CoppeliaSim安装位置（例如：/opt/CoppeliaSimo_Edu_V4_2_0_Ubuntu20_04）<br>2.打开system 文件夹下usrset.txt文件，将变量“ highhandedness”的值更改为2<br>3.重启CoppeliaSim<br><img src="/source/_posts/img/coppeliasim.png" alt="在这里插入图片描述"></p>]]></content>
+    <content type="html"><![CDATA[<h1>Ubuntu22.04 解决VREP/CoppeliaSim 界面字体过小问题</h1><h2 id="Windows10">Windows10</h2><p>1.右键单击CoppeliaSim.exe（可能的位置：C：\ Program Files \ CoppeliaRobotics \ CoppeliaSimEdu），然后单击“属性”。</p><p>2.在“兼容性”选项卡下</p><p>3.单击“更改高DPI设置”</p><p>4.选中“替代高DPI缩放行为”框</p><p>5.缩放比例–选择“啦啦啦啦啦系统”</p><h2 id="Ubuntu">Ubuntu</h2><p>1.找到CoppeliaSim安装位置（例如：/opt/CoppeliaSimo_Edu_V4_2_0_Ubuntu20_04）<br>2.打开system 文件夹下usrset.txt文件，将变量“ highhandedness”的值更改为2<br>3.重启CoppeliaSim<br><img src="/source/_posts/img/coppeliasim.png" alt="在这里插入图片描述"></p>]]></content>
     
     
     <categories>
