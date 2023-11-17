@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://ustc_zl.gitee.io/img/paper_project/work3.JPG">
 <meta property="og:image" content="https://ustc_zl.gitee.io/img/paper_project/work4.JPG">
 <meta property="article:published_time" content="2023-02-19T12:52:59.000Z">
-<meta property="article:modified_time" content="2023-11-17T09:03:22.942Z">
+<meta property="article:modified_time" content="2023-11-17T09:10:51.574Z">
 <meta property="article:author" content="高山临溪谷">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ustc_zl.gitee.io/img/bg/%E7%94%9F%E6%B4%BB%E7%85%A7.jpg">
@@ -607,11 +607,11 @@
   </div>
   <div style="flex: 1;">
     <div id="Image-container">
-      <img id="PROS" class="Image" src="/../img/paper_project/PROS.png" srcset="/img/loading.gif" lazyload style="display: none;">
-      <img id="work1" class="Image" src="/../img/paper_project/work1.JPG" srcset="/img/loading.gif" lazyload style="display: none;">
-      <img id="work2" class="Image" src="/../img/paper_project/work2.JPG" srcset="/img/loading.gif" lazyload style="display: none;">
-      <img id="work3" class="Image" src="/../img/paper_project/work3.JPG" srcset="/img/loading.gif" lazyload style="display: block;">
-      <img id="work4" class="Image" src="/../img/paper_project/work4.JPG" srcset="/img/loading.gif" lazyload style="display: none;">
+      <img alt="PROS" class="Image" src="/../img/paper_project/PROS.png" srcset="/img/loading.gif" lazyload>
+      <img alt="work1" class="Image" src="/../img/paper_project/work1.JPG" srcset="/img/loading.gif" lazyload>
+      <img alt="work2" class="Image" src="/../img/paper_project/work2.JPG" srcset="/img/loading.gif" lazyload>
+      <img alt="work3" class="Image" src="/../img/paper_project/work3.JPG" srcset="/img/loading.gif" lazyload>
+      <img alt="work4" class="Image" src="/../img/paper_project/work4.JPG" srcset="/img/loading.gif" lazyload>
       <span id="prev-arrow1" class="arrow1" onclick="prevImage1()">&lt;</span>
       <span id="next-arrow1" class="arrow1" onclick="nextImage1()">&gt;</span>
     </div>
@@ -684,9 +684,9 @@
     }
 
     function nextImage_project() {
-        hideImage(currentIndex_project);
+        hideImage_project(currentIndex_project);
         currentIndex_project = (currentIndex_project + 1) % Images.length;
-        showImage(currentIndex_project);
+        showImage_project(currentIndex_project);
     }
 
     function prevImage_project() {
@@ -696,11 +696,11 @@
     }
 
     function startAutoPlay_project() {
-        timer_project = setInterval_project(nextImage, 3000); // 每隔3秒切换到下一张图片
+        timer_project = setInterval(nextImage_project, 3000); // 每隔3秒切换到下一张图片
     }
 
     function stopAutoPlay_project() {
-        clearInterval_project(timer_project);
+        clearInterval(timer_project);
     }
 
     showImage_project(currentIndex_project);
