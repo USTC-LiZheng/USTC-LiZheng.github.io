@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://ustc_zl.gitee.io/img/paper_project/work3.JPG">
 <meta property="og:image" content="https://ustc_zl.gitee.io/img/paper_project/work4.JPG">
 <meta property="article:published_time" content="2023-02-19T12:52:59.000Z">
-<meta property="article:modified_time" content="2023-11-17T08:52:49.432Z">
+<meta property="article:modified_time" content="2023-11-17T09:03:22.942Z">
 <meta property="article:author" content="高山临溪谷">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ustc_zl.gitee.io/img/bg/%E7%94%9F%E6%B4%BB%E7%85%A7.jpg">
@@ -659,52 +659,52 @@
   </style>
   <script>
     var Images = document.getElementsByClassName("Image");
-    var currentIndex1 = 0;
+    var currentIndex_project = 0;
 
     function prevImage1() {
-      Images[currentIndex1].style.display = "none";
-      currentIndex1 = (currentIndex1 - 1 + Images.length) % Images.length;
-      Images[currentIndex1].style.display = "block";
+      Images[currentIndex_project].style.display = "none";
+      currentIndex1_project = (currentIndex_project - 1 + Images.length) % Images.length;
+      Images[currentIndex_project].style.display = "block";
     }
 
     function nextImage1() {
-      Images[currentIndex1].style.display = "none";
-      currentIndex1 = (currentIndex1 + 1) % Images.length;
-      Images[currentIndex1].style.display = "block";
+      Images[currentIndex_project].style.display = "none";
+      currentIndex_project = (currentIndex_project + 1) % Images.length;
+      Images[currentIndex_project].style.display = "block";
     }
     // 自动轮播图片
-    var timer;
+    var timer_project;
 
-    function showImage(index) {
+    function showImage_project(index) {
         Images[index].style.display = "block";
     }
 
-    function hideImage(index) {
+    function hideImage_project(index) {
         Images[index].style.display = "none";
     }
 
-    function nextImage() {
-        hideImage(currentIndex);
-        currentIndex = (currentIndex + 1) % Images.length;
-        showImage(currentIndex);
+    function nextImage_project() {
+        hideImage(currentIndex_project);
+        currentIndex_project = (currentIndex_project + 1) % Images.length;
+        showImage(currentIndex_project);
     }
 
-    function prevImage() {
-        hideImage(currentIndex);
-        currentIndex = (currentIndex - 1 + Images.length) % Images.length;
-        showImage(currentIndex);
+    function prevImage_project() {
+        hideImage_project(currentIndex_project);
+        currentIndex_project = (currentIndex_project - 1 + Images.length) % Images.length;
+        showImage_project(currentIndex_project);
     }
 
-    function startAutoPlay() {
-        timer = setInterval(nextImage, 3000); // 每隔3秒切换到下一张图片
+    function startAutoPlay_project() {
+        timer_project = setInterval_project(nextImage, 3000); // 每隔3秒切换到下一张图片
     }
 
-    function stopAutoPlay() {
-        clearInterval(timer);
+    function stopAutoPlay_project() {
+        clearInterval_project(timer_project);
     }
 
-    showImage(currentIndex);
-    startAutoPlay();
+    showImage_project(currentIndex_project);
+    startAutoPlay_project();
   </script>
   </div>
 </div>
