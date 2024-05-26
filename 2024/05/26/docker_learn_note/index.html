@@ -18,24 +18,22 @@
   <meta name="author" content="高山临溪谷">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Ubuntu22.04 解决VREP&#x2F;CoppeliaSim 界面字体过小问题Windows101.右键单击CoppeliaSim.exe（可能的位置：C：\ Program Files \ CoppeliaRobotics \ CoppeliaSimEdu），然后单击“属性”。 2.在“兼容性”选项卡下 3.单击“更改高DPI设置” 4.选中“替代高DPI缩放行为”框 5.缩放比例–选">
+    <meta name="description" content="docker 学习笔记1. 基础教程参考教程：  菜鸟入门Docker Docker 封装anaconda环境，生成镜像并打包1 Docker 封装anaconda环境，生成镜像并打包2 Docker 菜鸟教程  2. docker镜像准备下载基础镜像1docker pull ubuntu:18.04  制作镜像编写Dockerfile文件，内容示例如下：    12345678910111213">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows&#x2F;Ubuntu22.04 解决CoppeliaSim界面字体过小问题">
-<meta property="og:url" content="https://ustc-lizheng.github.io/2024/05/25/coppeliasim/index.html">
+<meta property="og:title" content="Docker 学习">
+<meta property="og:url" content="https://ustc-lizheng.github.io/2024/05/26/docker_learn_note/index.html">
 <meta property="og:site_name" content="高山临溪谷 个人博客">
-<meta property="og:description" content="Ubuntu22.04 解决VREP&#x2F;CoppeliaSim 界面字体过小问题Windows101.右键单击CoppeliaSim.exe（可能的位置：C：\ Program Files \ CoppeliaRobotics \ CoppeliaSimEdu），然后单击“属性”。 2.在“兼容性”选项卡下 3.单击“更改高DPI设置” 4.选中“替代高DPI缩放行为”框 5.缩放比例–选">
+<meta property="og:description" content="docker 学习笔记1. 基础教程参考教程：  菜鸟入门Docker Docker 封装anaconda环境，生成镜像并打包1 Docker 封装anaconda环境，生成镜像并打包2 Docker 菜鸟教程  2. docker镜像准备下载基础镜像1docker pull ubuntu:18.04  制作镜像编写Dockerfile文件，内容示例如下：    12345678910111213">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/coppeliasim.png">
-<meta property="article:published_time" content="2024-05-25T13:33:29.270Z">
-<meta property="article:modified_time" content="2024-05-26T06:41:24.885Z">
+<meta property="article:published_time" content="2024-05-26T06:34:27.480Z">
+<meta property="article:modified_time" content="2024-05-26T06:41:18.029Z">
 <meta property="article:author" content="高山临溪谷">
-<meta property="article:tag" content="Coppeliasim">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ustc-lizheng.github.io/img/blogs/coppeliasim.png">
   
   
   
-  <title>Windows/Ubuntu22.04 解决CoppeliaSim界面字体过小问题 - 高山临溪谷 个人博客</title>
+  <title>Docker 学习 - 高山临溪谷 个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -241,7 +239,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Windows/Ubuntu22.04 解决CoppeliaSim界面字体过小问题"></span>
+            <span id="subtitle" data-typed-text="Docker 学习"></span>
           
         </div>
 
@@ -257,8 +255,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-25 21:33" pubdate>
-          星期六, 2024年5月25日, 晚上9:33 
+        <time datetime="2024-05-26 14:34" pubdate>
+          星期日, 2024年5月26日, 下午2:34 
         </time>
       </span>
     
@@ -269,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          112 字
+          708 字
         
       </span>
     
@@ -280,7 +278,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -325,12 +323,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Windows/Ubuntu22.04 解决CoppeliaSim界面字体过小问题</h1>
+            <h1 id="seo-header">Docker 学习</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-05-26T14:41:24+08:00
+                    本文最后更新于 2024-05-26T14:41:18+08:00
                   
                   
 
@@ -340,12 +338,26 @@
             
               <div class="markdown-body">
                 
-                <h2 id="Ubuntu22-04-解决VREP-CoppeliaSim-界面字体过小问题"><a href="#Ubuntu22-04-解决VREP-CoppeliaSim-界面字体过小问题" class="headerlink" title="Ubuntu22.04 解决VREP&#x2F;CoppeliaSim 界面字体过小问题"></a>Ubuntu22.04 解决VREP&#x2F;CoppeliaSim 界面字体过小问题</h2><h3 id="Windows10"><a href="#Windows10" class="headerlink" title="Windows10"></a>Windows10</h3><p>1.右键单击CoppeliaSim.exe（可能的位置：C：\ Program Files \ CoppeliaRobotics \ CoppeliaSimEdu），然后单击“属性”。</p>
-<p>2.在“兼容性”选项卡下</p>
-<p>3.单击“更改高DPI设置”</p>
-<p>4.选中“替代高DPI缩放行为”框</p>
-<p>5.缩放比例–选择“系统”</p>
-<h3 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h3><p>1.找到CoppeliaSim安装位置（例如：&#x2F;opt&#x2F;CoppeliaSimo_Edu_V4_2_0_Ubuntu20_04）<br>2.打开system 文件夹下usrset.txt文件，将变量“ highhandedness”的值更改为2<br>3.重启CoppeliaSim<br><img src="/../img/blogs/coppeliasim.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+                <h2 id="docker-学习笔记"><a href="#docker-学习笔记" class="headerlink" title="docker 学习笔记"></a>docker 学习笔记</h2><h3 id="1-基础教程"><a href="#1-基础教程" class="headerlink" title="1. 基础教程"></a>1. 基础教程</h3><p>参考教程：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40298902/article/details/105967342">菜鸟入门Docker</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32101863/article/details/120341856">Docker 封装anaconda环境，生成镜像并打包1</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32101863/article/details/120344080">Docker 封装anaconda环境，生成镜像并打包2</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-image-usage.html">Docker 菜鸟教程</a></li>
+</ol>
+<h3 id="2-docker镜像准备"><a href="#2-docker镜像准备" class="headerlink" title="2. docker镜像准备"></a>2. docker镜像准备</h3><h4 id="下载基础镜像"><a href="#下载基础镜像" class="headerlink" title="下载基础镜像"></a>下载基础镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull ubuntu:18.04<br></code></pre></td></tr></table></figure>
+
+<h4 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h4><p>编写Dockerfile文件，内容示例如下：<br>    <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">使用官方的 Python 3.8 镜像作为基础镜像</span><br>FROM python:3.8<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装 wget</span><br><br>RUN apt-get update &amp;&amp; apt-get install -y wget &amp;&amp; rm -rf /var/lib/apt/lists/*<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">下载 Miniconda 安装脚本</span><br><br>RUN wget -q[https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh](https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh) -O miniconda.sh<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装 Miniconda</span><br><br>RUN bash miniconda.sh -b -p /opt/miniconda &amp;&amp;<br>rm miniconda.sh<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">初始化 Conda</span><br><br>RUN /opt/miniconda/bin/conda init bash<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">创建新的 Conda 环境</span><br><br>ENV CONDA_ENV=myenv<br>RUN conda create -y --name $CONDA_ENV python=3.8<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">激活 Conda 环境</span><br><br>RUN echo &quot;conda activate $CONDA_ENV&quot; &gt;&gt; ~/.bashrc<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装所需的包</span><br><br>RUN conda install -y -n $CONDA_ENV numpy pandas matplotlib<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置容器内的工作目录</span><br><br>WORKDIR /usr/src/app<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置容器启动时的命令</span><br><br>CMD [&quot;/bin/bash&quot;]<br></code></pre></td></tr></table></figure></p>
+<h4 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build --network host -t mirrors.tencent.com/star_library/tlinux-64bit-python3.6:0415 .<br></code></pre></td></tr></table></figure>
+
+<h4 id="推送镜像"><a href="#推送镜像" class="headerlink" title="推送镜像"></a>推送镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">以下方括号内容为需要根据实际需求替换的字符串</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">登录至软件源docker registry，[user]为OA账号名，[token]为软件源系统分配，可以通过【快捷指令】获取</span><br>sudo docker login --username [user] --password [token] mirrors.tencent.com<br><span class="hljs-meta prompt_"> </span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">push镜像至软件源docker registry，[image_id]即docker镜像的<span class="hljs-built_in">id</span>，可以通过sudo docker image list命令查看</span><br>sudo docker tag [image_id] mirrors.tencent.com/[namespace]/[repo]:[tag]<br>sudo docker push mirrors.tencent.com/[namespace]/[repo]:[tag]<br><br>如<br>docker push mirrors.tencent.com/gethinhu/tlinux-64bit-python3.6:0415<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-调试"><a href="#3-调试" class="headerlink" title="3. 调试"></a>3. 调试</h3><p>为了保证调试时训练程序运行环境与线上实际的运行环境一致，需要在开发机上用与线上相同的docker镜像启动容器</p>
+<p>为了方便，平台也准备了一个脚本run_docker.sh，可以从附件下载使用。使用方法：</p>
+<p>注意：</p>
+<p>如果报错‘run_docker.sh : command not found’，请检查&#x2F;usr&#x2F;local&#x2F;bin是否包含在$PATH里，如果没有，将其加入$PATH。</p>
+<p>如果报错‘docker: Error response from daemon: could not select device driver “” with capabilities: [[gpu]].’，是因为开发机没安装nvidia-docker，可以联系O2000(Oteam统一技术支持)解决。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">1. 编写run_docker.sh</span><br>        # 示例<br><br>        #!/bin/bash<br>        image_full_name=$1<br>        if [ -z $&#123;image_full_name&#125; ]<br>        then<br>        echo &quot;mirrors.tencent.com/lllzheng/cuda11.8-ubuntu20.04:0511    \n&quot;<br>        exit 0<br>        fi<br><br>        cmd=$2<br>        if [ -z &quot;$&#123;cmd&#125;&quot; ]<br>        then<br>        echo &quot;cd /apdcephfs/private_lllzheng/taiji/peg-in-hole-6D/     \n&quot;<br>        echo &quot;conda activate mujoco     \n&quot;<br>        echo &quot;python3 /apdcephfs/private_lllzheng/taiji/peg-in-hole-6D/try_train.py     \n&quot;<br>        exit 0<br>        fi<br><br>        echo $&#123;image_full_name&#125;<br>        echo $&#123;cmd&#125;<br>        docker run -it --gpus all --network=host --name test -v /apdcephfs/:/apdcephfs/private_lllzheng  $&#123;image_full_name&#125;  $&#123;cmd&#125;<br><br>        #如果docker -v版本小于19.03，请使用以下docker run命令<br>        #docker run -it -e NVIDIA_VISIBLE_DEVICES=all --network=host -v /apdcephfs/:/apdcephfs/  $&#123;image_full_name&#125;  $&#123;cmd&#125;<br><br>        # sudo bash run_docker.sh mirrors.tencent.com/lllzheng/cuda11.8-ubuntu20.04:0511 /bin/bash -c &quot;cd /apdcephfs/private_lllzheng/taiji/peg-in-hole-6D/ &amp;&amp; conda activate mujoco &amp;&amp; python3 /apdcephfs/private_lllzheng/taiji/peg-in-hole-6D/try_train.py&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">2. 运行run_docker.sh</span><br>chmod +x run_docker.sh<br>run_docker.sh $&#123;image_full_name&#125; $&#123;cmd&#125;<br>eg：run_docker.sh mirrors.tencent.com/star_library/g-tlinux2.2-python3.6-cuda9.0-cudnn7.6-tf1.12:latest /bin/bash -c &quot;python3.6 /apdcephfs/private_gethinhu/mnist_trainer/fully_connected_feed.py --train_dir /apdcephfs/share_986015/mnist_dataset/ --max_steps 100000 --batch_size=1000&quot;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -364,7 +376,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Coppeliasi/" class="category-chain-item">Coppeliasi</a>
+  <a href="/categories/Docker/" class="category-chain-item">Docker</a>
   
   
 
@@ -379,7 +391,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Coppeliasim/" class="print-no-link">#Coppeliasim</a>
+        <a href="/tags/Docker/" class="print-no-link">#Docker</a>
       
     </div>
   
@@ -391,8 +403,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Windows/Ubuntu22.04 解决CoppeliaSim界面字体过小问题</div>
-      <div>https://ustc-lizheng.github.io/2024/05/25/coppeliasim/</div>
+      <div>Docker 学习</div>
+      <div>https://ustc-lizheng.github.io/2024/05/26/docker_learn_note/</div>
     </div>
     <div class="license-meta">
       
@@ -404,7 +416,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月25日</div>
+          <div>2024年5月26日</div>
         </div>
       
       
@@ -436,18 +448,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/25/mujoco_learn/" title="Mujoco 学习笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mujoco 学习笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/25/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2024/05/26/mujoco-py%20learn_note/" title="Mujoco-py 学习">
+                        <span class="hidden-mobile">Mujoco-py 学习</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
