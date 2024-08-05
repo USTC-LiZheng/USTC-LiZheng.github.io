@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/%E5%85%B3%E4%BA%8E%E9%A1%B5%E5%A4%B4%E5%83%8F.jpg">
+  <link rel="icon" href="/img/bg/%E5%85%B3%E4%BA%8E%E9%A1%B5%E5%A4%B4%E5%83%8F.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="高山临溪谷">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Deep Deterministic Policy Gradient（DDPG）  Google DeepMind 提出的一种使用 Actor Critic 结构, 但是输出的不是行为的概率, 而是具体的行为, 用于连续动作 (continuous action) 的预测。 DDPG 结合了之前获得成功的 DQN 结构, 提高了 Actor Critic 的稳定性和收敛性。  DDPG更新 **A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDPG">
+<meta property="og:url" content="https://ustc-lizheng.github.io/2024/08/05/DDPG/index.html">
+<meta property="og:site_name" content="高山临溪谷 个人博客">
+<meta property="og:description" content="Deep Deterministic Policy Gradient（DDPG）  Google DeepMind 提出的一种使用 Actor Critic 结构, 但是输出的不是行为的概率, 而是具体的行为, 用于连续动作 (continuous action) 的预测。 DDPG 结合了之前获得成功的 DQN 结构, 提高了 Actor Critic 的稳定性和收敛性。  DDPG更新 **A">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG4.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG5.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG6.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG7.png">
+<meta property="article:published_time" content="2024-08-05T06:58:58.583Z">
+<meta property="article:modified_time" content="2024-08-05T06:58:58.583Z">
+<meta property="article:author" content="高山临溪谷">
+<meta property="article:tag" content="RL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG4.png">
+  
+  
+  
+  <title>DDPG - 高山临溪谷 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustc-lizheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?9bb969e5e8f62b3eff1006be4a03a22c";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>高山临溪谷</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/%E6%96%87%E7%AB%A0%E9%A1%B5%E8%83%8C%E6%99%AF.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DDPG"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        高山临溪谷
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-05 14:58" pubdate>
+          星期一, 2024年8月5日, 下午2:58 
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          899 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DDPG</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Deep-Deterministic-Policy-Gradient（DDPG）"><a href="#Deep-Deterministic-Policy-Gradient（DDPG）" class="headerlink" title="Deep Deterministic Policy Gradient（DDPG）"></a>Deep Deterministic Policy Gradient（DDPG）</h1><p><img src="/../img/blogs/rl/DDPG/DDPG4.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+<ul>
+<li>Google DeepMind 提出的一种使用 Actor Critic 结构, 但是输出的不是行为的概率, 而是具体的行为, 用于连续动作 (continuous action) 的预测。 DDPG 结合了之前获得成功的 DQN 结构, 提高了 Actor Critic 的稳定性和收敛性。</li>
+</ul>
+<h2 id="DDPG更新"><a href="#DDPG更新" class="headerlink" title="DDPG更新"></a>DDPG更新</h2><ul>
+<li><p>**<code>Actor</code>**：它的前半部分<code>grad[Q]</code>是从<code>Critic</code>来的, 这是在说: 这次<code>Actor</code>的动作要怎么移动, 才能获得更大的<code>Q</code>, 而后半部分<code>grad[μ]</code>是从<code>Actor</code>来的, 这是在说:<code>Actor</code>要怎么样修改自身参数, 使得<code>Actor</code>更有可能做这个动作。 所以两者合起来就是在说:<code>Actor</code>要朝着更有可能获取大<code>Q</code>的方向修改动作参数了。<br><img src="/../img/blogs/rl/DDPG/DDPG5.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+</li>
+<li><p>**<code>Critic</code>**：借鉴了<code>DQN</code>和<code>Double Q learning</code>的方式, 有两个计算<code>Q</code>的神经网络, <code>Q_target</code>中依据下一状态, 用<code>Actor</code>来选择动作, 而这时的<code>Actor</code>也是一个<code>Actor_target</code>(有着 Actor 很久之前的参数)。 使用这种方法获得的<code>Q_target</code>能像<code>DQN</code>那样切断相关性, 提高收敛性。<br><img src="/../img/blogs/rl/DDPG/DDPG6.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+</li>
+</ul>
+<h2 id="DDPG整体算法"><a href="#DDPG整体算法" class="headerlink" title="DDPG整体算法"></a>DDPG整体算法</h2><p><img src="/../img/blogs/rl/DDPG/DDPG7.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+<ul>
+<li>Actor 在运用 Policy Gradient 的方法进行 Gradient ascent 的时候, 由 Critic 来告诉他, 这次的 Gradient ascent 是不是一次正确的 ascent, 如果这次的得分不好, 那么就不要 ascent 那么多。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Note: This is a updated version from my previous code,</span><br><span class="hljs-string">for the target network, I use moving average to soft replace target parameters instead using assign function.</span><br><span class="hljs-string">By doing this, it has 20% speed up on my machine (CPU).</span><br><span class="hljs-string"></span><br><span class="hljs-string">Deep Deterministic Policy Gradient (DDPG), Reinforcement Learning.</span><br><span class="hljs-string">DDPG is Actor Critic based algorithm.</span><br><span class="hljs-string">Pendulum example.</span><br><span class="hljs-string"></span><br><span class="hljs-string">View more on my tutorial page: https://morvanzhou.github.io/tutorials/</span><br><span class="hljs-string"></span><br><span class="hljs-string">Using:</span><br><span class="hljs-string">tensorflow 1.0</span><br><span class="hljs-string">gym 0.8.0</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> gym<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-comment">#####################  hyper parameters  ####################</span><br><br>MAX_EPISODES = <span class="hljs-number">200</span><br>MAX_EP_STEPS = <span class="hljs-number">200</span><br>LR_A = <span class="hljs-number">0.001</span>    <span class="hljs-comment"># learning rate for actor</span><br>LR_C = <span class="hljs-number">0.002</span>    <span class="hljs-comment"># learning rate for critic</span><br>GAMMA = <span class="hljs-number">0.9</span>     <span class="hljs-comment"># reward discount</span><br>TAU = <span class="hljs-number">0.01</span>      <span class="hljs-comment"># soft replacement</span><br>MEMORY_CAPACITY = <span class="hljs-number">10000</span><br>BATCH_SIZE = <span class="hljs-number">32</span><br><br>RENDER = <span class="hljs-literal">False</span><br>ENV_NAME = <span class="hljs-string">&#x27;Pendulum-v0&#x27;</span><br><br><br><span class="hljs-comment">###############################  DDPG  ####################################</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DDPG</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, a_dim, s_dim, a_bound,</span>):<br>        self.memory = np.zeros((MEMORY_CAPACITY, s_dim * <span class="hljs-number">2</span> + a_dim + <span class="hljs-number">1</span>), dtype=np.float32)<br>        self.pointer = <span class="hljs-number">0</span><br>        self.sess = tf.Session()<br><br>        self.a_dim, self.s_dim, self.a_bound = a_dim, s_dim, a_bound,<br>        self.S = tf.placeholder(tf.float32, [<span class="hljs-literal">None</span>, s_dim], <span class="hljs-string">&#x27;s&#x27;</span>)<br>        self.S_ = tf.placeholder(tf.float32, [<span class="hljs-literal">None</span>, s_dim], <span class="hljs-string">&#x27;s_&#x27;</span>)<br>        self.R = tf.placeholder(tf.float32, [<span class="hljs-literal">None</span>, <span class="hljs-number">1</span>], <span class="hljs-string">&#x27;r&#x27;</span>)<br><br>        self.a = self._build_a(self.S,)<br>        q = self._build_c(self.S, self.a, )<br>        a_params = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=<span class="hljs-string">&#x27;Actor&#x27;</span>)<br>        c_params = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=<span class="hljs-string">&#x27;Critic&#x27;</span>)<br>        ema = tf.train.ExponentialMovingAverage(decay=<span class="hljs-number">1</span> - TAU)          <span class="hljs-comment"># soft replacement</span><br><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">ema_getter</span>(<span class="hljs-params">getter, name, *args, **kwargs</span>):<br>            <span class="hljs-keyword">return</span> ema.average(getter(name, *args, **kwargs))<br><br>        target_update = [ema.apply(a_params), ema.apply(c_params)]      <span class="hljs-comment"># soft update operation</span><br>        a_ = self._build_a(self.S_, reuse=<span class="hljs-literal">True</span>, custom_getter=ema_getter)   <span class="hljs-comment"># replaced target parameters</span><br>        q_ = self._build_c(self.S_, a_, reuse=<span class="hljs-literal">True</span>, custom_getter=ema_getter)<br><br>        a_loss = - tf.reduce_mean(q)  <span class="hljs-comment"># maximize the q</span><br>        self.atrain = tf.train.AdamOptimizer(LR_A).minimize(a_loss, var_list=a_params)<br><br>        <span class="hljs-keyword">with</span> tf.control_dependencies(target_update):    <span class="hljs-comment"># soft replacement happened at here</span><br>            q_target = self.R + GAMMA * q_<br>            td_error = tf.losses.mean_squared_error(labels=q_target, predictions=q)<br>            self.ctrain = tf.train.AdamOptimizer(LR_C).minimize(td_error, var_list=c_params)<br><br>        self.sess.run(tf.global_variables_initializer())<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">choose_action</span>(<span class="hljs-params">self, s</span>):<br>        <span class="hljs-keyword">return</span> self.sess.run(self.a, &#123;self.S: s[np.newaxis, :]&#125;)[<span class="hljs-number">0</span>]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">learn</span>(<span class="hljs-params">self</span>):<br>        indices = np.random.choice(MEMORY_CAPACITY, size=BATCH_SIZE)<br>        bt = self.memory[indices, :]<br>        bs = bt[:, :self.s_dim]<br>        ba = bt[:, self.s_dim: self.s_dim + self.a_dim]<br>        br = bt[:, -self.s_dim - <span class="hljs-number">1</span>: -self.s_dim]<br>        bs_ = bt[:, -self.s_dim:]<br><br>        self.sess.run(self.atrain, &#123;self.S: bs&#125;)<br>        self.sess.run(self.ctrain, &#123;self.S: bs, self.a: ba, self.R: br, self.S_: bs_&#125;)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">store_transition</span>(<span class="hljs-params">self, s, a, r, s_</span>):<br>        transition = np.hstack((s, a, [r], s_))<br>        index = self.pointer % MEMORY_CAPACITY  <span class="hljs-comment"># replace the old memory with new memory</span><br>        self.memory[index, :] = transition<br>        self.pointer += <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_build_a</span>(<span class="hljs-params">self, s, reuse=<span class="hljs-literal">None</span>, custom_getter=<span class="hljs-literal">None</span></span>):<br>        trainable = <span class="hljs-literal">True</span> <span class="hljs-keyword">if</span> reuse <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">with</span> tf.variable_scope(<span class="hljs-string">&#x27;Actor&#x27;</span>, reuse=reuse, custom_getter=custom_getter):<br>            net = tf.layers.dense(s, <span class="hljs-number">30</span>, activation=tf.nn.relu, name=<span class="hljs-string">&#x27;l1&#x27;</span>, trainable=trainable)<br>            a = tf.layers.dense(net, self.a_dim, activation=tf.nn.tanh, name=<span class="hljs-string">&#x27;a&#x27;</span>, trainable=trainable)<br>            <span class="hljs-keyword">return</span> tf.multiply(a, self.a_bound, name=<span class="hljs-string">&#x27;scaled_a&#x27;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_build_c</span>(<span class="hljs-params">self, s, a, reuse=<span class="hljs-literal">None</span>, custom_getter=<span class="hljs-literal">None</span></span>):<br>        trainable = <span class="hljs-literal">True</span> <span class="hljs-keyword">if</span> reuse <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">with</span> tf.variable_scope(<span class="hljs-string">&#x27;Critic&#x27;</span>, reuse=reuse, custom_getter=custom_getter):<br>            n_l1 = <span class="hljs-number">30</span><br>            w1_s = tf.get_variable(<span class="hljs-string">&#x27;w1_s&#x27;</span>, [self.s_dim, n_l1], trainable=trainable)<br>            w1_a = tf.get_variable(<span class="hljs-string">&#x27;w1_a&#x27;</span>, [self.a_dim, n_l1], trainable=trainable)<br>            b1 = tf.get_variable(<span class="hljs-string">&#x27;b1&#x27;</span>, [<span class="hljs-number">1</span>, n_l1], trainable=trainable)<br>            net = tf.nn.relu(tf.matmul(s, w1_s) + tf.matmul(a, w1_a) + b1)<br>            <span class="hljs-keyword">return</span> tf.layers.dense(net, <span class="hljs-number">1</span>, trainable=trainable)  <span class="hljs-comment"># Q(s,a)</span><br><br><br><span class="hljs-comment">###############################  training  ####################################</span><br><br>env = gym.make(ENV_NAME)<br>env = env.unwrapped<br>env.seed(<span class="hljs-number">1</span>)<br><br>s_dim = env.observation_space.shape[<span class="hljs-number">0</span>]<br>a_dim = env.action_space.shape[<span class="hljs-number">0</span>]<br>a_bound = env.action_space.high<br><br>ddpg = DDPG(a_dim, s_dim, a_bound)<br><br>var = <span class="hljs-number">3</span>  <span class="hljs-comment"># control exploration</span><br>t1 = time.time()<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(MAX_EPISODES):<br>    s = env.reset()<br>    ep_reward = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(MAX_EP_STEPS):<br>        <span class="hljs-keyword">if</span> RENDER:<br>            env.render()<br><br>        <span class="hljs-comment"># Add exploration noise</span><br>        a = ddpg.choose_action(s)<br>        a = np.clip(np.random.normal(a, var), -<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)    <span class="hljs-comment"># add randomness to action selection for exploration</span><br>        s_, r, done, info = env.step(a)<br><br>        ddpg.store_transition(s, a, r / <span class="hljs-number">10</span>, s_)<br><br>        <span class="hljs-keyword">if</span> ddpg.pointer &gt; MEMORY_CAPACITY:<br>            var *= <span class="hljs-number">.9995</span>    <span class="hljs-comment"># decay the action randomness</span><br>            ddpg.learn()<br><br>        s = s_<br>        ep_reward += r<br>        <span class="hljs-keyword">if</span> j == MAX_EP_STEPS-<span class="hljs-number">1</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Episode:&#x27;</span>, i, <span class="hljs-string">&#x27; Reward: %i&#x27;</span> % <span class="hljs-built_in">int</span>(ep_reward), <span class="hljs-string">&#x27;Explore: %.2f&#x27;</span> % var, )<br>            <span class="hljs-comment"># if ep_reward &gt; -300:RENDER = True</span><br>            <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Running time: &#x27;</span>, time.time() - t1)<br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RL%E7%AE%97%E6%B3%95/" class="category-chain-item">RL算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/RL/" class="print-no-link">#RL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DDPG</div>
+      <div>https://ustc-lizheng.github.io/2024/08/05/DDPG/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>高山临溪谷</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/05/Actor%20Critic/" title="Actor Critic">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Actor Critic</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/05/DQN/" title="DQN">
+                        <span class="hidden-mobile">DQN</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","appKey":"9cpcaXZYQD3RSCCH9tj8DaGQ","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
