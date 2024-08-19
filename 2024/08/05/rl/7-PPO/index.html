@@ -21,14 +21,14 @@
     <meta name="description" content="Proximal Policy Optimization（PPO） 一句话概括PPO: OpenAI 提出的一种解决Policy Gradient不好确定Learning rate(或者Step size) 的问题。 因为如果step size过大, 学出来的Policy会一直乱动, 不会收敛, 但如果Step Size太小, 对于完成训练, 我们会等到绝望。 PPO利用New Policy和Ol">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PPO">
-<meta property="og:url" content="https://ustc-lizheng.github.io/2024/08/05/PPO/index.html">
+<meta property="og:url" content="https://ustc-lizheng.github.io/2024/08/05/rl/7-PPO/index.html">
 <meta property="og:site_name" content="高山临溪谷 个人博客">
 <meta property="og:description" content="Proximal Policy Optimization（PPO） 一句话概括PPO: OpenAI 提出的一种解决Policy Gradient不好确定Learning rate(或者Step size) 的问题。 因为如果step size过大, 学出来的Policy会一直乱动, 不会收敛, 但如果Step Size太小, 对于完成训练, 我们会等到绝望。 PPO利用New Policy和Ol">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/PPO/ppo2.png">
 <meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/PPO/ppo3.png">
 <meta property="article:published_time" content="2024-08-05T06:58:58.584Z">
-<meta property="article:modified_time" content="2024-08-05T06:58:58.584Z">
+<meta property="article:modified_time" content="2024-08-19T06:01:12.811Z">
 <meta property="article:author" content="高山临溪谷">
 <meta property="article:tag" content="RL">
 <meta name="twitter:card" content="summary_large_image">
@@ -328,13 +328,23 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">PPO</h1>
             
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    本文最后更新于 2024-08-19T14:01:12+08:00
+                  
+                  
+
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
                 <h1 id="Proximal-Policy-Optimization（PPO）"><a href="#Proximal-Policy-Optimization（PPO）" class="headerlink" title="Proximal Policy Optimization（PPO）"></a>Proximal Policy Optimization（PPO）</h1><ul>
 <li>一句话概括<code>PPO</code>: OpenAI 提出的一种解决<code>Policy Gradient</code>不好确定<code>Learning rate</code>(或者<code>Step size</code>) 的问题。 因为如果<code>step size</code>过大, 学出来的<code>Policy</code>会一直乱动, 不会收敛, 但如果<code>Step Size</code>太小, 对于完成训练, 我们会等到绝望。 <code>PPO</code>利用<code>New Policy</code>和<code>Old Policy</code>的比例, 限制了<code>New Policy</code>的更新幅度, 让<code>Policy Gradient</code>对稍微大点的<code>Step size</code>不那么敏感。</li>
 </ul>
-<h2 id="PPO整体算法"><a href="#PPO整体算法" class="headerlink" title="PPO整体算法"></a>PPO整体算法</h2><p><img src="/../img/blogs/rl/PPO/ppo2.png" srcset="/img/loading.gif" lazyload alt="1720667078392"><br><img src="/../img/blogs/rl/PPO/ppo3.png" srcset="/img/loading.gif" lazyload alt="1720667078392"></p>
+<h2 id="PPO整体算法"><a href="#PPO整体算法" class="headerlink" title="PPO整体算法"></a>PPO整体算法</h2><p><img src="/../../img/blogs/rl/PPO/ppo2.png" srcset="/img/loading.gif" lazyload alt="1720667078392"><br><img src="/../../img/blogs/rl/PPO/ppo3.png" srcset="/img/loading.gif" lazyload alt="1720667078392"></p>
 <ul>
 <li><code>PPO</code>是一套<code>Actor-Critic</code>结构, <code>Actor</code>想最大化<code>J_PPO</code>, <code>Critic</code>想最小化<code>L_BL</code>。<code>Critic</code>的<code>loss</code>好说, 就是减小<code>TD error</code>。而<code>Actor</code>的就是在<code>old Policy</code>上根据<code>Advantage (TD error)</code>修改<code>new Policy</code>, <code>advantage</code>大的时候, 修改幅度大, 让<code>new Policy</code>更可能发生。而且他们附加了一个<code>KL Penalty</code>(惩罚项), 简单来说, 如果<code>new Policy</code>和 <code>old Policy</code>差太多, 那<code>KL divergence</code>也越大。</li>
 </ul>
@@ -385,7 +395,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>PPO</div>
-      <div>https://ustc-lizheng.github.io/2024/08/05/PPO/</div>
+      <div>https://ustc-lizheng.github.io/2024/08/05/rl/7-PPO/</div>
     </div>
     <div class="license-meta">
       
@@ -429,9 +439,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/19/nlp/2-%E6%90%9C%E7%B4%A2/" title="搜索">
+                      <a href="/2024/08/05/rl/4-Policy%20Gradients/" title="Policy Gradients">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">搜索</span>
+                        <span class="hidden-mobile">Policy Gradients</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -439,8 +449,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/05/Policy%20Gradients/" title="Policy Gradients">
-                        <span class="hidden-mobile">Policy Gradients</span>
+                      <a href="/2024/08/05/rl/5-Actor%20Critic/" title="Actor Critic">
+                        <span class="hidden-mobile">Actor Critic</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -648,6 +658,33 @@
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   

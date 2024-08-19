@@ -19,17 +19,17 @@
   <meta name="keywords" content="">
   
     <meta name="description" content="Q-LearningQLearning 决策  学习完成后，根据当前状态在Q值表中的最大Q值来选取动作  QLearning更新  更新Q值表：通过计算现实Q值和估计Q值的差距来更新 现实Q值：通过想象在下个状态选择的Q值（max）乘上衰减系数，并加上到达下个状态的奖励作为现实Q值（off-policy） 估计Q值：原Q值表中对应的Q值  QLearning整体算法  迷人之处：在Q(s1, a2">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Q-Learning">
-<meta property="og:url" content="https://ustc-lizheng.github.io/2024/07/12/Q-Learning/index.html">
+<meta property="og:url" content="https://ustc-lizheng.github.io/_posts/rl/1-Q-Learning.html">
 <meta property="og:site_name" content="高山临溪谷 个人博客">
 <meta property="og:description" content="Q-LearningQLearning 决策  学习完成后，根据当前状态在Q值表中的最大Q值来选取动作  QLearning更新  更新Q值表：通过计算现实Q值和估计Q值的差距来更新 现实Q值：通过想象在下个状态选择的Q值（max）乘上衰减系数，并加上到达下个状态的奖励作为现实Q值（off-policy） 估计Q值：原Q值表中对应的Q值  QLearning整体算法  迷人之处：在Q(s1, a2">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/Q-Learning/q2.png">
 <meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/Q-Learning/q3.png">
 <meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/Q-Learning/q4.png">
-<meta property="article:published_time" content="2024-07-12T07:30:07.712Z">
-<meta property="article:modified_time" content="2024-07-12T08:00:31.283Z">
+<meta property="article:published_time" content="2024-08-19T06:02:43.244Z">
+<meta property="article:modified_time" content="2024-08-19T06:02:43.244Z">
 <meta property="article:author" content="高山临溪谷">
 <meta property="article:tag" content="RL">
 <meta name="twitter:card" content="summary_large_image">
@@ -42,12 +42,6 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
@@ -125,7 +119,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 70vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -237,7 +231,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/bg/%E6%96%87%E7%AB%A0%E9%A1%B5%E8%83%8C%E6%99%AF.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -246,59 +240,6 @@
             <span id="subtitle" data-typed-text="Q-Learning"></span>
           
         </div>
-
-        
-          
-  <div class="mt-3">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-author" aria-hidden="true"></i>
-        高山临溪谷
-      </span>
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-12 15:30" pubdate>
-          星期五, 2024年7月12日, 下午3:30 
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          413 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          4 分钟
-        
-      </span>
-    
-
-    
-    
-      
-        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="leancloud-page-views"></span> 次
-        </span>
-        
-      
-    
-  </div>
-
 
         
       </div>
@@ -314,45 +255,27 @@
 
   <main>
     
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Q-Learning</h1>
-            
-              <p id="updated-time" class="note note-info" style="display: none">
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
                 
-                  
-                    本文最后更新于 2024-07-12T16:00:31+08:00
-                  
-                  
 
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h1><h2 id="QLearning-决策"><a href="#QLearning-决策" class="headerlink" title="QLearning 决策"></a>QLearning 决策</h2><p><img src="/../img/blogs/rl/Q-Learning/q2.png" srcset="/img/loading.gif" lazyload alt="1720667078392"></p>
+<article class="page-content">
+  <h1 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h1><h2 id="QLearning-决策"><a href="#QLearning-决策" class="headerlink" title="QLearning 决策"></a>QLearning 决策</h2><p><img src="/../../img/blogs/rl/Q-Learning/q2.png" srcset="/img/loading.gif" lazyload alt="1720667078392"></p>
 <ul>
 <li>学习完成后，根据当前状态在Q值表中的<em><strong>最大</strong></em>Q值来选取动作</li>
 </ul>
-<h2 id="QLearning更新"><a href="#QLearning更新" class="headerlink" title="QLearning更新"></a>QLearning更新</h2><p><img src="/../img/blogs/rl/Q-Learning/q3.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+<h2 id="QLearning更新"><a href="#QLearning更新" class="headerlink" title="QLearning更新"></a>QLearning更新</h2><p><img src="/../../img/blogs/rl/Q-Learning/q3.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
 <ul>
 <li><strong>更新Q值表</strong>：通过计算现实Q值和估计Q值的差距来更新</li>
 <li><strong>现实Q值</strong>：通过<em><strong>想象</strong></em>在下个状态选择的Q值（<em><strong>max</strong></em>）乘上衰减系数，并加上到达下个状态的奖励作为现实Q值（off-policy）</li>
 <li><strong>估计Q值</strong>：原Q值表中对应的Q值</li>
 </ul>
-<h2 id="QLearning整体算法"><a href="#QLearning整体算法" class="headerlink" title="QLearning整体算法"></a>QLearning整体算法</h2><p><img src="/../img/blogs/rl/Q-Learning/q4.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+<h2 id="QLearning整体算法"><a href="#QLearning整体算法" class="headerlink" title="QLearning整体算法"></a>QLearning整体算法</h2><p><img src="/../../img/blogs/rl/Q-Learning/q4.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
 <ul>
 <li><strong>迷人之处</strong>：在<code>Q(s1, a2)</code>现实中, 也包含了一个<code>Q(s2)</code>的最大估计值，将对下一步的衰减的最大估计和当前所得到的奖励当成这一步的现实Q值。</li>
 <li><strong>Epsilon greedy</strong>：是用在决策上的一种策略, 比如 epsilon &#x3D; 0.9 时, 就说明有90% 的情况我会按照 Q 表的最优值选择行为, 10% 的时间使用随机选行为。</li>
@@ -361,201 +284,18 @@
 </ul>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">This part of code is the Q learning brain, which is a brain of the agent.</span><br><span class="hljs-string">All decisions are made in here.</span><br><span class="hljs-string"></span><br><span class="hljs-string">View more on my tutorial page: https://morvanzhou.github.io/tutorials/</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br>np.random.seed(<span class="hljs-number">2</span>)  <span class="hljs-comment"># reproducible</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">QLearningTable</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, actions, learning_rate=<span class="hljs-number">0.01</span>, reward_decay=<span class="hljs-number">0.9</span>, e_greedy=<span class="hljs-number">0.9</span></span>):<br>        self.actions = actions  <span class="hljs-comment"># a list</span><br>        self.lr = learning_rate<br>        self.gamma = reward_decay<br>        self.epsilon = e_greedy<br>        self.q_table = pd.DataFrame(columns=self.actions, dtype=np.float64)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">choose_action</span>(<span class="hljs-params">self, observation</span>):<br>        self.check_state_exist(observation)<br>        <span class="hljs-comment"># action selection</span><br>        <span class="hljs-keyword">if</span> np.random.uniform() &lt; self.epsilon:<br>            <span class="hljs-comment"># choose best action</span><br>            state_action = self.q_table.loc[observation, :]<br>            <span class="hljs-comment"># some actions may have the same value, randomly choose on in these actions</span><br>            action = np.random.choice(state_action[state_action == np.<span class="hljs-built_in">max</span>(state_action)].index)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-comment"># choose random action</span><br>            action = np.random.choice(self.actions)<br>        <span class="hljs-keyword">return</span> action<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">learn</span>(<span class="hljs-params">self, s, a, r, s_</span>):<br>        self.check_state_exist(s_)<br>        q_predict = self.q_table.loc[s, a]<br>        <span class="hljs-keyword">if</span> s_ != <span class="hljs-string">&#x27;terminal&#x27;</span>:<br>            q_target = r + self.gamma * self.q_table.loc[s_, :].<span class="hljs-built_in">max</span>()  <span class="hljs-comment"># next state is not terminal</span><br>        <span class="hljs-keyword">else</span>:<br>            q_target = r  <span class="hljs-comment"># next state is terminal</span><br>        self.q_table.loc[s, a] += self.lr * (q_target - q_predict)  <span class="hljs-comment"># update</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">check_state_exist</span>(<span class="hljs-params">self, state</span>):<br>        <span class="hljs-keyword">if</span> state <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> self.q_table.index:<br>            <span class="hljs-comment"># append new state to q table</span><br>            self.q_table = self.q_table.append(<br>                pd.Series(<br>                    [<span class="hljs-number">0</span>]*<span class="hljs-built_in">len</span>(self.actions),<br>                    index=self.q_table.columns,<br>                    name=state,<br>                )<br>            )<br></code></pre></td></tr></table></figure>
 
-                
+
+  
+
+</article>
+
+
+
               </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/RL%E7%AE%97%E6%B3%95/" class="category-chain-item">RL算法</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/RL/" class="print-no-link">#RL</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Q-Learning</div>
-      <div>https://ustc-lizheng.github.io/2024/07/12/Q-Learning/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>高山临溪谷</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年7月12日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
+            </div>
           </div>
         </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/07/12/Sarsa/" title="Sarsa">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Sarsa</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/05/26/docker_learn_note/" title="Docker 学习">
-                        <span class="hidden-mobile">Docker 学习</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","appKey":"9cpcaXZYQD3RSCCH9tj8DaGQ","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
       </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
     
 
     
@@ -670,126 +410,6 @@
 
 
 
-
-  
-<script>
-  var relativeDate = function() {
-    var updatedTime = document.getElementById('updated-time');
-    if (updatedTime) {
-      var text = updatedTime.textContent;
-      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
-      var matchs = text.match(reg);
-      if (matchs) {
-        var relativeTime = moment(matchs[0]).fromNow();
-        updatedTime.textContent = text.replace(reg, relativeTime);
-      }
-      updatedTime.style.display = '';
-    }
-  };
-  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
-    if (!'zh-cn'.startsWith('en')) {
-      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
-        relativeDate();
-      });
-    } else {
-      relativeDate();
-    }
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
 
   <script defer src="/js/leancloud.js" ></script>
 

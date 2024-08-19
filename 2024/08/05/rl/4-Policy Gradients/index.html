@@ -21,7 +21,7 @@
     <meta name="description" content="Policy Gradients 对比起Value-based的方法(Q learning, Deep Q Network), Policy Gradients 直接输出动作，最大好处就是, 它能在一个连续分布上选取 action。  Policy Gradients 决策 行为不再是Q-value来选定的, 而是用概率来选定.  Policy Gradients 更新  观测的信息通过神经网络分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Policy Gradients">
-<meta property="og:url" content="https://ustc-lizheng.github.io/2024/08/05/Policy%20Gradients/index.html">
+<meta property="og:url" content="https://ustc-lizheng.github.io/2024/08/05/rl/4-Policy%20Gradients/index.html">
 <meta property="og:site_name" content="高山临溪谷 个人博客">
 <meta property="og:description" content="Policy Gradients 对比起Value-based的方法(Q learning, Deep Q Network), Policy Gradients 直接输出动作，最大好处就是, 它能在一个连续分布上选取 action。  Policy Gradients 决策 行为不再是Q-value来选定的, 而是用概率来选定.  Policy Gradients 更新  观测的信息通过神经网络分">
 <meta property="og:locale" content="zh_CN">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/PG/PG03.png">
 <meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/PG/PG04.png">
 <meta property="article:published_time" content="2024-08-05T06:58:58.584Z">
-<meta property="article:modified_time" content="2024-08-05T06:58:58.584Z">
+<meta property="article:modified_time" content="2024-08-19T06:02:01.209Z">
 <meta property="article:author" content="高山临溪谷">
 <meta property="article:tag" content="RL">
 <meta name="twitter:card" content="summary_large_image">
@@ -329,6 +329,16 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">Policy Gradients</h1>
             
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    本文最后更新于 2024-08-19T14:02:01+08:00
+                  
+                  
+
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
@@ -338,11 +348,11 @@
 <h2 id="Policy-Gradients-决策"><a href="#Policy-Gradients-决策" class="headerlink" title="Policy Gradients 决策"></a>Policy Gradients 决策</h2><ul>
 <li>行为不再是<code>Q-value</code>来选定的, 而是用<em><strong>概率</strong></em>来选定.</li>
 </ul>
-<h2 id="Policy-Gradients-更新"><a href="#Policy-Gradients-更新" class="headerlink" title="Policy Gradients 更新"></a>Policy Gradients 更新</h2><p><img src="/../img/blogs/rl/PG/PG02.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+<h2 id="Policy-Gradients-更新"><a href="#Policy-Gradients-更新" class="headerlink" title="Policy Gradients 更新"></a>Policy Gradients 更新</h2><p><img src="/../../img/blogs/rl/PG/PG02.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
 <ul>
 <li>观测的信息通过神经网络分析, 选出了左边的行为, 直接进行反向传递, 使之下次被选的可能性增加, 但是奖惩信息却告诉这次的行为是不好的, 那动作可能性增加的幅度随之被减低. 这样就能靠奖励来左右神经网络反向传递。(回合更新)</li>
 </ul>
-<h2 id="Policy-Gradients整体算法"><a href="#Policy-Gradients整体算法" class="headerlink" title="Policy Gradients整体算法"></a>Policy Gradients整体算法</h2><p><img src="/../img/blogs/rl/PG/PG03.png" srcset="/img/loading.gif" lazyload alt="1720667162152"><br><img src="/../img/blogs/rl/PG/PG04.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
+<h2 id="Policy-Gradients整体算法"><a href="#Policy-Gradients整体算法" class="headerlink" title="Policy Gradients整体算法"></a>Policy Gradients整体算法</h2><p><img src="/../../img/blogs/rl/PG/PG03.png" srcset="/img/loading.gif" lazyload alt="1720667162152"><br><img src="/../../img/blogs/rl/PG/PG04.png" srcset="/img/loading.gif" lazyload alt="1720667162152"></p>
 <ul>
 <li><strong>吃惊度</strong>：<code>(log(Policy(s,a))*V)</code> 表示在 状态 s 对所选动作 a 的<em><strong>吃惊度</strong></em>, 如果<code>Policy(s,a)</code>概率越小, 反向的<code>log(Policy(s,a))</code>(即 -log(P)) 反而越大。如果在<code>Policy(s,a)</code>很小的情况下, 拿到了一个大的<code>R</code>, 也就是大的<code>V</code>, 那<code>-(log(Policy(s, a))*V)</code>就更大, 表示更吃惊, (我选了一个不常选的动作, 却发现原来它能得到了一个好的<code>reward</code>, 那我就得对我这次的参数进行一个大幅修改)。</li>
 </ul>
@@ -392,7 +402,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Policy Gradients</div>
-      <div>https://ustc-lizheng.github.io/2024/08/05/Policy Gradients/</div>
+      <div>https://ustc-lizheng.github.io/2024/08/05/rl/4-Policy Gradients/</div>
     </div>
     <div class="license-meta">
       
@@ -436,9 +446,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/05/PPO/" title="PPO">
+                      <a href="/2024/08/19/nlp/3-%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/" title="理解词语">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">PPO</span>
+                        <span class="hidden-mobile">理解词语</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -446,8 +456,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/05/DDPG/" title="DDPG">
-                        <span class="hidden-mobile">DDPG</span>
+                      <a href="/2024/08/05/rl/7-PPO/" title="PPO">
+                        <span class="hidden-mobile">PPO</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -655,6 +665,33 @@
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   
