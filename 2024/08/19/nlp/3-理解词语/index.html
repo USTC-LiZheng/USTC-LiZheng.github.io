@@ -1,0 +1,834 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/%E5%85%B3%E4%BA%8E%E9%A1%B5%E5%A4%B4%E5%83%8F.jpg">
+  <link rel="icon" href="/img/bg/%E5%85%B3%E4%BA%8E%E9%A1%B5%E5%A4%B4%E5%83%8F.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="高山临溪谷">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="理解词语机器是这样理解语言 - 词向量1. 计算机理解语言  计算机之所以能看懂字里行间的感情，理解文字，处理文字，并不是因为它理解的我们普罗万象的人类语言，而是它将语言或者词汇归类到了一个正确的位置上。计算机对词语的理解，其实是计算机对空间及位置的理解。 不管是图片，文章，句子，词语，声音，只要是能被数值化，被投射到某个空间中，计算机都能把它们按相似度聚集起来。  2. 词向量在词向量训练的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解词语">
+<meta property="og:url" content="https://ustc-lizheng.github.io/2024/08/19/nlp/3-%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/index.html">
+<meta property="og:site_name" content="高山临溪谷 个人博客">
+<meta property="og:description" content="理解词语机器是这样理解语言 - 词向量1. 计算机理解语言  计算机之所以能看懂字里行间的感情，理解文字，处理文字，并不是因为它理解的我们普罗万象的人类语言，而是它将语言或者词汇归类到了一个正确的位置上。计算机对词语的理解，其实是计算机对空间及位置的理解。 不管是图片，文章，句子，词语，声音，只要是能被数值化，被投射到某个空间中，计算机都能把它们按相似度聚集起来。  2. 词向量在词向量训练的过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v3.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v4.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v6.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v7.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v8.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v9.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v10.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v11.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v12.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/cbow_illustration.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/cbow_illustration.png">
+<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/skip_gram_illustration.png">
+<meta property="article:published_time" content="2024-08-19T05:46:47.051Z">
+<meta property="article:modified_time" content="2024-08-19T05:46:47.051Z">
+<meta property="article:author" content="高山临溪谷">
+<meta property="article:tag" content="nlp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v3.png">
+  
+  
+  
+  <title>理解词语 - 高山临溪谷 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ustc-lizheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?9bb969e5e8f62b3eff1006be4a03a22c";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>高山临溪谷</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/%E6%96%87%E7%AB%A0%E9%A1%B5%E8%83%8C%E6%99%AF.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="理解词语"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        高山临溪谷
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-19 13:46" pubdate>
+          星期一, 2024年8月19日, 下午1:46 
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">理解词语</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="理解词语"><a href="#理解词语" class="headerlink" title="理解词语"></a>理解词语</h1><h2 id="机器是这样理解语言-词向量"><a href="#机器是这样理解语言-词向量" class="headerlink" title="机器是这样理解语言 - 词向量"></a>机器是这样理解语言 - 词向量</h2><h3 id="1-计算机理解语言"><a href="#1-计算机理解语言" class="headerlink" title="1. 计算机理解语言"></a>1. 计算机理解语言</h3><p><img 
+    src="../../img/blogs/nlp/理解词语/nlp-w2v3.png" srcset="/img/loading.gif" lazyload
+    width="500" height="300"
+    style="display: block; margin: 0 auto;"
+/><br><img 
+    src="../../img/blogs/nlp/理解词语/nlp-w2v4.png" srcset="/img/loading.gif" lazyload
+    width="500" height="300"
+    style="display: block; margin: 0 auto;"
+/></p>
+<ul>
+<li>计算机之所以能看懂字里行间的感情，理解文字，处理文字，并不是因为它理解的我们普罗万象的人类语言，而是它将语言或者词汇归类到了一个正确的位置上。计算机对词语的理解，其实是计算机对空间及位置的理解。</li>
+<li>不管是图片，文章，句子，词语，声音，只要是能被数值化，被投射到某个空间中，计算机都能把它们按相似度聚集起来。<br><img 
+  src="../../img/blogs/nlp/理解词语/nlp-w2v6.png" srcset="/img/loading.gif" lazyload
+  width="500" height="300"
+  style="display: block; margin: 0 auto;"
+/></li>
+</ul>
+<h3 id="2-词向量"><a href="#2-词向量" class="headerlink" title="2. 词向量"></a>2. 词向量</h3><p><img 
+    src="../../img/blogs/nlp/理解词语/nlp-w2v7.png" srcset="/img/loading.gif" lazyload
+    width="500" height="300"
+    style="display: block; margin: 0 auto;"
+/><br>在词向量训练的过程中，相似词总会被聚集到一块地方且方向大概都相同，比如这里的猫狗龙。而差异较大的词会被拉远，且方向有可能不同，所以和猫狗这些动物相比，没有生命的飞机，碗等都离得很远。</p>
+<p>所以如果只想测量两个词的相似度，角度信息也足够了。但点与点的距离还透露了更多的信息，只要两个词总在一起出现，他们之间的关联性应该越强，距离应该也越近。我们想一想，如果一个词不仅出现的频率高，而且任何句子中都能出现，比如“在”，“你”，“吗”这一类的词。</p>
+<p><img 
+    src="../../img/blogs/nlp/理解词语/nlp-w2v8.png" srcset="/img/loading.gif" lazyload
+    width="500" height="300"
+    style="display: block; margin: 0 auto;"
+/><br>为了得到这些词的位置，机器需要不断计算他们之间的相关性。这个过程称之为机器学习或者模型训练。这些词每次训练的时候都想被拉扯到独立的空间，但是被太多不同方向的词拉来拉去，比如”在”这个字，训练“在这”的时候“在”字被拉扯到靠近“这”字的方向。训练“在家”的时候，“在”字将会更靠近“家”字，后面的训练也一样，所以“在”字因为频率太高，和很多字都能混搭，它就算是之中机器认为的“中性词”，越有区分力的词可能越远离中心地带，因为他们和其他词都不像，而越通用，在每种场景都有的词，就可能越靠近原点。这时，点与点的距离就能告诉我们词的频率性特征。</p>
+<h3 id="3-训练词向量"><a href="#3-训练词向量" class="headerlink" title="3. 训练词向量"></a>3. 训练词向量</h3><p><img 
+    src="../../img/blogs/nlp/理解词语/nlp-w2v9.png" srcset="/img/loading.gif" lazyload
+    width="500" height="300"
+    style="display: block; margin: 0 auto;"
+/><br>训练词向量可以直接在原始语料上做非监督学习，只要有各种各样的文章数据就行。训练时，取一小段文本，取出这些词的向量表示，比如取出除了“一”字以外的词向量，然后整合到一起，表示这些文字的整体向量，用这个整体向量预测最中间那个“一”。接下来在开始下一段文字的训练。</p>
+<p>将这个窗口挪动一格，用前后文预测“段”字，接着将窗口依次这样扫过所有文字，用所有的前后文预测中间词，这样计算机就能将前后文的关系搞清楚，挨得近的词他们的关系越亲密总出现在类似的上下文中间的词关系越亲密。向量在一定程度上也越相近。除了用前后文预测中间词，我们还能换一个思路，用中间词预测前后文也行。</p>
+<h3 id="4-词向量的应用"><a href="#4-词向量的应用" class="headerlink" title="4. 词向量的应用"></a>4. 词向量的应用</h3><p><img 
+    src="../../img/blogs/nlp/理解词语/nlp-w2v10.png" srcset="/img/loading.gif" lazyload
+    width="500" height="300"
+    style="display: block; margin: 0 auto;"
+/><br>有种用法很简单，就是直接把词向量当成词语特征输入进另一个模型里。这样就能用更丰富的词向量信息来表示一个词语ID。在这种情况中，我们说词向量是一种预训练特征。用word2vec 的方法预先训练好了词语的特征表达，然后在其他场景中拿着预训练结果直接使用。</p>
+<div style="display: flex; justify-content: space-between;">
+    <img src="../../img/blogs/nlp/理解词语/nlp-w2v11.png" srcset="/img/loading.gif" lazyload width="50%" />
+    <img src="../../img/blogs/nlp/理解词语/nlp-w2v12.png" srcset="/img/loading.gif" lazyload width="50%" />
+</div>
+还有种更有趣的玩法，用词向量进行加减运算，男人减掉女人的词向量，差不多就约等于公猫减掉母猫的词向量。
+
+<h2 id="Continuous-Bag-of-Words-CBOW"><a href="#Continuous-Bag-of-Words-CBOW" class="headerlink" title="Continuous Bag of Words (CBOW)"></a>Continuous Bag of Words (CBOW)</h2><h3 id="1-CBOW模型"><a href="#1-CBOW模型" class="headerlink" title="1. CBOW模型"></a>1. CBOW模型</h3><p>用一句话概述：挑一个要预测的词，来学习这个词前后文中词语和预测词的关系。</p>
+<p><code>举个例子: 我爱莫烦Python，莫烦Python通俗易懂。</code></p>
+<p>模型在做的事情如图中所示，将这句话拆成输入和输出，用前后文的词向量来预测句中的某个词。<br><img 
+    src="../../img/blogs/nlp/理解词语/cbow_illustration.png" srcset="/img/loading.gif" lazyload
+    width="500" height="300"
+    style="display: block; margin: 0 auto;"
+/><br>通过在大数据量的短语或文章中学习这样的词语关系，这个模型就能理解要预测的词和前后文的关系。而图中彩色的词向量就是这种训练过程的一个副产品。</p>
+<h3 id="2-词向量的应用"><a href="#2-词向量的应用" class="headerlink" title="2. 词向量的应用"></a>2. 词向量的应用</h3><p>词向量的几种典型应用：</p>
+<ul>
+<li>把这些对词语理解的向量通过特定方法组合起来，就可以有对某句话的理解了；</li>
+<li>可以在向量空间中找寻同义词，因为同义词表达的意思相近，往往在空间中距离也非常近；</li>
+<li>词语的距离换算。<br>词语距离计算这个比较有意思，比如可以拿词语做加减法。公猫 - 母猫 就约等于 男人 - 女人。</li>
+</ul>
+<h2 id="Skip-Gram"><a href="#Skip-Gram" class="headerlink" title="Skip-Gram"></a>Skip-Gram</h2><h3 id="1-Skip-Gram模型"><a href="#1-Skip-Gram模型" class="headerlink" title="1. Skip-Gram模型"></a>1. Skip-Gram模型</h3><p>Skip-Gram 是把CBOW过程反过来,使用文中的某个词，然后预测这个词周边的词。</p>
+<div style="display: flex; justify-content: space-between;">
+    <img src="../../img/blogs/nlp/理解词语/cbow_illustration.png" srcset="/img/loading.gif" lazyload width="50%" />
+    <img src="../../img/blogs/nlp/理解词语/skip_gram_illustration.png" srcset="/img/loading.gif" lazyload width="50%" />
+</div>
+
+<ul>
+<li>Skip-Gram 相比 CBOW 最大的不同，就是剔除掉了中间的那个 SUM 求和的过程，我在这里提到过, 我觉得将词向量求和的这个过程不太符合直观的逻辑，因为我也不知道这加出来的到底代表着是一个句向量还是一个另词向量，求和是一种粗暴的类型转换。 而Skip-Gram没有这个过程，最终我们加工的始终都是输入端单个词向量，这样的设计我比较能够接受。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/nlp/" class="category-chain-item">nlp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/nlp/" class="print-no-link">#nlp</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>理解词语</div>
+      <div>https://ustc-lizheng.github.io/2024/08/19/nlp/3-理解词语/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>高山临溪谷</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/19/nlp/1-nlp%E7%AE%80%E4%BB%8B/" title="NLP简介">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NLP简介</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/19/nlp/4-%E7%90%86%E8%A7%A3%E5%8F%A5%E5%AD%90/" title="理解句子">
+                        <span class="hidden-mobile">理解句子</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","appKey":"9cpcaXZYQD3RSCCH9tj8DaGQ","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
