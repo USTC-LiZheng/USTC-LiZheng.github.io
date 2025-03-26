@@ -21,20 +21,20 @@
     <meta name="description" content="Deep Deterministic Policy Gradient（DDPG）  Google DeepMind 提出的一种使用 Actor Critic 结构, 但是输出的不是行为的概率, 而是具体的行为, 用于连续动作 (continuous action) 的预测。 DDPG 结合了之前获得成功的 DQN 结构, 提高了 Actor Critic 的稳定性和收敛性。  DDPG更新 **A">
 <meta property="og:type" content="website">
 <meta property="og:title" content="DDPG">
-<meta property="og:url" content="https://ustc-lizheng.github.io/_posts/rl/6-DDPG.html">
+<meta property="og:url" content="https://lllzheng.github.io/_posts/rl/6-DDPG.html">
 <meta property="og:site_name" content="高山临溪谷 个人博客">
 <meta property="og:description" content="Deep Deterministic Policy Gradient（DDPG）  Google DeepMind 提出的一种使用 Actor Critic 结构, 但是输出的不是行为的概率, 而是具体的行为, 用于连续动作 (continuous action) 的预测。 DDPG 结合了之前获得成功的 DQN 结构, 提高了 Actor Critic 的稳定性和收敛性。  DDPG更新 **A">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG4.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG5.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG6.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG7.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/rl/DDPG/DDPG4.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/rl/DDPG/DDPG5.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/rl/DDPG/DDPG6.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/rl/DDPG/DDPG7.png">
 <meta property="article:published_time" content="2024-08-19T06:01:34.520Z">
 <meta property="article:modified_time" content="2024-08-19T06:01:34.520Z">
 <meta property="article:author" content="高山临溪谷">
 <meta property="article:tag" content="RL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ustc-lizheng.github.io/img/blogs/rl/DDPG/DDPG4.png">
+<meta name="twitter:image" content="https://lllzheng.github.io/img/blogs/rl/DDPG/DDPG4.png">
   
   
   
@@ -70,7 +70,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ustc-lizheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lllzheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;

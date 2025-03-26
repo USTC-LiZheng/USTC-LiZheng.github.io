@@ -21,28 +21,28 @@
     <meta name="description" content="理解词语机器是这样理解语言 - 词向量1. 计算机理解语言  计算机之所以能看懂字里行间的感情，理解文字，处理文字，并不是因为它理解的我们普罗万象的人类语言，而是它将语言或者词汇归类到了一个正确的位置上。计算机对词语的理解，其实是计算机对空间及位置的理解。 不管是图片，文章，句子，词语，声音，只要是能被数值化，被投射到某个空间中，计算机都能把它们按相似度聚集起来。  2. 词向量在词向量训练的过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解词语">
-<meta property="og:url" content="https://ustc-lizheng.github.io/2024/08/19/nlp/3-%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/index.html">
+<meta property="og:url" content="https://lllzheng.github.io/2024/08/19/nlp/3-%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/index.html">
 <meta property="og:site_name" content="高山临溪谷 个人博客">
 <meta property="og:description" content="理解词语机器是这样理解语言 - 词向量1. 计算机理解语言  计算机之所以能看懂字里行间的感情，理解文字，处理文字，并不是因为它理解的我们普罗万象的人类语言，而是它将语言或者词汇归类到了一个正确的位置上。计算机对词语的理解，其实是计算机对空间及位置的理解。 不管是图片，文章，句子，词语，声音，只要是能被数值化，被投射到某个空间中，计算机都能把它们按相似度聚集起来。  2. 词向量在词向量训练的过程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v3.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v4.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v6.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v7.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v8.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v9.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v10.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v11.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v12.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/cbow_illustration.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/cbow_illustration.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/skip_gram_illustration.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v3.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v4.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v6.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v7.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v8.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v9.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v10.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v11.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v12.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/cbow_illustration.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/cbow_illustration.png">
+<meta property="og:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/skip_gram_illustration.png">
 <meta property="article:published_time" content="2024-08-19T05:46:47.051Z">
 <meta property="article:modified_time" content="2024-08-19T05:46:47.051Z">
 <meta property="article:author" content="高山临溪谷">
 <meta property="article:tag" content="nlp">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ustc-lizheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v3.png">
+<meta name="twitter:image" content="https://lllzheng.github.io/2024/08/19/img/blogs/nlp/%E7%90%86%E8%A7%A3%E8%AF%8D%E8%AF%AD/nlp-w2v3.png">
   
   
   
@@ -84,7 +84,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ustc-lizheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lllzheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -454,7 +454,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>理解词语</div>
-      <div>https://ustc-lizheng.github.io/2024/08/19/nlp/3-理解词语/</div>
+      <div>https://lllzheng.github.io/2024/08/19/nlp/3-理解词语/</div>
     </div>
     <div class="license-meta">
       
@@ -508,8 +508,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/19/nlp/2-%E6%90%9C%E7%B4%A2/" title="搜索">
-                        <span class="hidden-mobile">搜索</span>
+                      <a href="/2024/08/19/nlp/1-nlp%E7%AE%80%E4%BB%8B/" title="NLP简介">
+                        <span class="hidden-mobile">NLP简介</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -21,29 +21,29 @@
     <meta name="description" content="搜索搜索引擎工作原理1. 搜索引擎  在早期互联网时代，世界上诞生了一个影响全世界的公司，Google，它所带来的搜索也突破老一代的技术，登上了历史舞台，并影响着后续2-30年的人类社会发展。华人比较熟悉的百度则是在稍后一些，为中文搜索带来了前所未有的体验。  2. 垂类搜索  搜个社交，点个外卖，查个账款，旅个游，这些生活中的服务体系，早已经深度嵌入了我们一天中每一个时间点，对应上了会发生在我们">
 <meta property="og:type" content="website">
 <meta property="og:title" content="搜索">
-<meta property="og:url" content="https://ustc-lizheng.github.io/_posts/nlp/2-%E6%90%9C%E7%B4%A2.html">
+<meta property="og:url" content="https://lllzheng.github.io/_posts/nlp/2-%E6%90%9C%E7%B4%A2.html">
 <meta property="og:site_name" content="高山临溪谷 个人博客">
 <meta property="og:description" content="搜索搜索引擎工作原理1. 搜索引擎  在早期互联网时代，世界上诞生了一个影响全世界的公司，Google，它所带来的搜索也突破老一代的技术，登上了历史舞台，并影响着后续2-30年的人类社会发展。华人比较熟悉的百度则是在稍后一些，为中文搜索带来了前所未有的体验。  2. 垂类搜索  搜个社交，点个外卖，查个账款，旅个游，这些生活中的服务体系，早已经深度嵌入了我们一天中每一个时间点，对应上了会发生在我们">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search2.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search3.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search5.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search6.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search7.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search8.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search9.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search10.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search11.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search12.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search13.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search14.png">
-<meta property="og:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/tfidf_doc_vec.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search2.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search3.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search5.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search6.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search7.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search8.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search9.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search10.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search11.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search12.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search13.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search14.png">
+<meta property="og:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/tfidf_doc_vec.png">
 <meta property="article:published_time" content="2024-08-19T05:46:47.051Z">
 <meta property="article:modified_time" content="2024-08-19T05:46:47.051Z">
 <meta property="article:author" content="高山临溪谷">
 <meta property="article:tag" content="nlp">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ustc-lizheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search2.png">
+<meta name="twitter:image" content="https://lllzheng.github.io/img/blogs/nlp/%E6%90%9C%E7%B4%A2/nlp-search2.png">
   
   
   
@@ -79,7 +79,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ustc-lizheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lllzheng.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":"9bb969e5e8f62b3eff1006be4a03a22c","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"6geGe6nxV08T5bm4HkmrFCj6-gzGzoHsz","app_key":"9cpcaXZYQD3RSCCH9tj8DaGQ","server_url":"https://6gege6nx.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
